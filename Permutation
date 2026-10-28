@@ -1,0 +1,30 @@
+
+class Solution {
+    public void backtrack(int[] nums, int startIndex,
+                          List<List<Integer>> permutations) {
+        if (startIndex == nums.length) {
+            List<Integer> permutation = new ArrayList<>();
+            for (int num : nums) permutation.add(num);
+            permutations.add(permutation);
+            return;
+        }
+
+        for (int i = startIndex; i < nums.length; i++) {
+            swap(nums, i, startIndex);
+            backtrack(nums, startIndex + 1, permutations);
+            swap(nums, i, startIndex);
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        backtrack(nums, 0, permutations);
+        return permutations;
+    }
+}
